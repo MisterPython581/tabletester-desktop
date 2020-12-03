@@ -34,7 +34,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>TableTester</string>
+   <string>TableTester Desktop</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -59,7 +59,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Bienvenue sur TableTester !</string>
+    <string>Bienvenue sur TableTester Desktop !</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

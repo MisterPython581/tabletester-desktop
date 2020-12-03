@@ -1,21 +1,49 @@
+"""
+    This file is part of TableTester Desktop.
+
+    TableTester Desktop is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    TableTester Desktop is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with TableTester Desktop.
+    If not, see <https://www.gnu.org/licenses/>.
+"""
 import random
 import sys
 
-from PyQt5 import uic, QtWidgets
+try:
+    from PyQt5 import uic, QtWidgets # UI Module
+except ImportError:
+    print("Oops...\nAn error has occurred. We couldn't import the module \"PyQt5\" \
+due to an ImportError raised by the Python interpreter. Please install it with the command: \
+\n$pip install PyQt5")
+    sys.exit(1)
 
 home = "main.ui"
 quiz = "quiz.ui"
 
+# Load the two UI files
 Ui_Home, QtBaseClass = uic.loadUiType(home)
 Ui_Quiz, QtBaseClass = uic.loadUiType(quiz)
 
 
 class Home(QtWidgets.QDialog, Ui_Home):
+    """
+        Home window of TableTester Desktop.
+        It will display once you have opened it.
+    """
     def __init__(self):
         super(Home, self).__init__()
         self.setupUi(self)
         with open("average.dat") as file:
-            self.ui_average.setText(str(file.read().replace(".", ",")))
+            self.ui_average.setText(str(file.read().replace(".", ",")))  # Replace the character "." to ","
         self.ButtonRun.clicked.connect(run_quiz)
         self.reset.clicked.connect(reset)
         self.scoretemp = ""
@@ -73,7 +101,7 @@ class Quiz(QtWidgets.QDialog, Ui_Quiz):
         self.s1 = random.randint(1, 10)
         self.s2 = random.randint(1, 10)
         self.home_redirect = False
-        self.setWindowTitle("TableTester - Question %s/10" % self.sn)
+        self.setWindowTitle("TableTester Desktop - Question %s/10" % self.sn)
         self.AskLabel.setText(" %s X %s" % (self.s1, self.s2))
         self.AskLabel.setText(" %s X %s" % (self.s1, self.s2))
         self.ResultLabel.setText("")
