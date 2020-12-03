@@ -38,7 +38,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>img/icon.svg</normaloff>img/icon.svg</iconset>
+    <normaloff>img/icon.png</normaloff>img/icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);</string>
