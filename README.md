@@ -1,7 +1,9 @@
 # TableTester Desktop
- A open source desktop app to practice in multiplication tables.
+ An open source desktop app to practice in multiplication tables.
 ## Installation
  TableTester uses PyQt5 to display windows on your computer and to read .ui files. You can't use TableTester Desktop without installing
  this module.
  You can install PyQt5 with Pip: pip install PyQt5
- ###### Info: For now, this software is only available in french.
+## Image info
+ The image icon (img/icon.png) [comes from there](https://commons.wikimedia.org/wiki/File:Font_Awesome_5_solid_calculator.svg) (Here you can see the copyright and the license). No changes were performed to the image.
+###### Info: For now, this software is only available in french. We will soon use [LanguageManager](https://github.com/MisterPython581/language-manager) to provide translations for TableTester Desktop.
