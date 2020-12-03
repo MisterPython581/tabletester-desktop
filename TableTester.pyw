@@ -17,17 +17,20 @@
 """
 import random
 import sys
+import os
 
 try:
-    from PyQt5 import uic, QtWidgets # UI Module
+    from PyQt5 import uic, QtWidgets  # UI Module
 except ImportError:
     print("Oops...\nAn error has occurred. We couldn't import the module \"PyQt5\" \
 due to an ImportError raised by the Python interpreter. Please install it with the command: \
 \n$pip install PyQt5")
     sys.exit(1)
 
-home = "main.ui"
-quiz = "quiz.ui"
+main_dir = os.path.dirname(__file__)
+
+home = f"{main_dir}/main.ui"
+quiz = f"{main_dir}/quiz.ui"
 
 # Load the two UI files
 Ui_Home, QtBaseClass = uic.loadUiType(home)
@@ -42,7 +45,7 @@ class Home(QtWidgets.QDialog, Ui_Home):
     def __init__(self):
         super(Home, self).__init__()
         self.setupUi(self)
-        with open("average.dat") as file:
+        with open(f"{main_dir}/average.dat") as file:
             self.ui_average.setText(str(file.read().replace(".", ",")))  # Replace the character "." to ","
         self.ButtonRun.clicked.connect(run_quiz)
         self.reset.clicked.connect(reset)
@@ -59,7 +62,7 @@ class Quiz(QtWidgets.QDialog, Ui_Quiz):
         self.s1 = random.randint(1, 10)
         self.s2 = random.randint(1, 10)
         self.home_redirect = False
-        self.setWindowTitle("TableTester - Question %s/10" % self.sn)
+        self.__change_score_in_window_title__(self.sn)
         self.AskLabel.setText(" %s X %s" % (self.s1, self.s2))
         self.Next.clicked.connect(self.valid)
         self.Back.clicked.connect(self.exit)
@@ -76,7 +79,7 @@ class Quiz(QtWidgets.QDialog, Ui_Quiz):
             self.s1 = random.randint(1, 10)
             self.s2 = random.randint(1, 10)
             self.home_redirect = False
-            self.setWindowTitle(f"TableTester - Question {self.sn}/10")
+            self.__change_score_in_window_title__(self.sn)
             self.AskLabel.setText(f" {self.s1} X {self.s2}")
             self.ResultLabel.setText("")
         if self.sn == 11:
@@ -85,7 +88,7 @@ class Quiz(QtWidgets.QDialog, Ui_Quiz):
             self.home_redirect = True
             change_average(self.score)
         else:
-            self.setWindowTitle(f"TableTester - Question {self.sn}/10")
+            self.__change_score_in_window_title__(self.sn)
             self.s1 = random.randint(1, 10)
             self.s2 = random.randint(1, 10)
             self.AskLabel.setText(" %s X %s" % (self.s1, self.s2))
@@ -101,19 +104,21 @@ class Quiz(QtWidgets.QDialog, Ui_Quiz):
         self.s1 = random.randint(1, 10)
         self.s2 = random.randint(1, 10)
         self.home_redirect = False
-        self.setWindowTitle("TableTester Desktop - Question %s/10" % self.sn)
-        self.AskLabel.setText(" %s X %s" % (self.s1, self.s2))
+        self.__change_score_in_window_title__(self.sn)
         self.AskLabel.setText(" %s X %s" % (self.s1, self.s2))
         self.ResultLabel.setText("")
 
+    def __change_score_in_window_title__(self, value):
+        self.setWindowTitle(f"TableTester Desktop - Question {self.sn}/10")
+
 
 def change_average(value):
-    file = open("average.dat", "r")
+    file = open(f"{main_dir}/average.dat", "r")
     average = file.read()
     file.close()
     average = str(average)
     average = float((float(average) + value) / 2)
-    file = open("average.dat", "w")
+    file = open(f"{main_dir}/average.dat", "w")
     average = str(average)
     average = average[:4]
     file.write(average)
@@ -127,7 +132,7 @@ def run_quiz():
 
 
 def reset():
-    with open("average.dat", "w") as file:
+    with open(f"{main_dir}average.dat", "w") as file:
         file.write("5.0")
     homew.ui_average.setText("5,00")
 
